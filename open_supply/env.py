@@ -44,7 +44,7 @@ class OpenSupplyEnv:
             self.total_orders = len(self.orders)
             self.done = False
         
-        return self.state("Environment initialized. Awaiting commands.")
+            return self.state("Environment initialized. Awaiting commands.")
 
     def state(self, feedback: str = "") -> SupplyObservation:
         pending = sum(1 for o in self.orders.values() if o["status"] == "pending")
