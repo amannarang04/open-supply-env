@@ -133,17 +133,13 @@ class OpenSupplyEnv:
         return 0.5, f"Success! {action.order_id} routed from {action.source_warehouse} via {action.shipping_method}. Cost: ${cost}."
 
     def _calculate_score(self) -> float:
-        # Strict range [0.01, 0.99] to satisfy hackathon grader
+        # Simplest possible scorable logic
         if self.total_orders == 0:
-            return 0.01
+            return 0.5
         
-        if self.budget < 0:
-            return 0.01
-            
-        raw_percentage = self.completed / self.total_orders
+        completion_rate = self.completed / self.total_orders
         
-        # Ensure it NEVER touches 0.0 or 1.0
-        # If 100% complete, it becomes 0.95. If 0% complete, it becomes 0.05.
-        score = 0.05 + (raw_percentage * 0.90) 
+        # Linear scale between 0.1 and 0.9
+        score = 0.1 + (completion_rate * 0.8)
         
-        return round(float(score), 2)
+        return float(round(score, 2))
