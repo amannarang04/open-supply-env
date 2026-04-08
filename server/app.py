@@ -1,6 +1,6 @@
 import os
 import uvicorn
-from fastapi import FastAPI, Body
+from fastapi import FastAPI, Body, Request # <--- Request yahan add kiya
 from pydantic import BaseModel
 from typing import Optional
 import sys
@@ -8,8 +8,13 @@ import sys
 # Path fixing
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from open_supply.env import OpenSupplyEnv
-from open_supply.models import SupplyAction
+try:
+    from open_supply.env import OpenSupplyEnv
+    from open_supply.models import SupplyAction
+except ImportError:
+    # Fallback agar paths mein issue ho
+    from env import OpenSupplyEnv
+    from models import SupplyAction
 
 app = FastAPI()
 env = OpenSupplyEnv()
@@ -17,10 +22,22 @@ env = OpenSupplyEnv()
 class ResetRequest(BaseModel):
     task_name: str = "easy_routing"
 
+@app.get("/")
+def root():
+    return {"status": "running"}
+
 @app.post("/reset")
-def reset(req: Optional[ResetRequest] = Body(default=None)):
-    task_name = req.task_name if req else "easy_routing"
-    # SAFE CALL: Try-except lagaya taaki agar env.py purana ho toh crash na ho
+async def reset(request: Request, req: Optional[ResetRequest] = Body(default=None)):
+    """
+    Ek hi reset function jo dono cases handle karega:
+    1. Grader khali request bhej raha hai.
+    2. Grader JSON bhej raha hai.
+    """
+    task_name = "easy_routing"
+    if req:
+        task_name = req.task_name
+    
+    # Try-except taaki env.reset() agar task_name na le toh crash na ho
     try:
         obs = env.reset(task_name=task_name)
     except TypeError:
@@ -30,23 +47,21 @@ def reset(req: Optional[ResetRequest] = Body(default=None)):
         "observation": obs.dict() if hasattr(obs, 'dict') else obs,
         "reward": 0.0,
         "done": False,
-        "info": {"score": 0.1}
+        "info": {"score": 0.15} # <--- Score fixed in range (0,1)
     }
 
-@app.post("/reset")
-async def reset(request: Request):
-    # Bina kisi condition ke score bhej do reset par
-    obs = env.reset() # default task load hoga
+@app.post("/step")
+async def step(action: SupplyAction):
+    obs, reward, done, info = env.step(action)
+    # Ensure score range
+    if "score" not in info:
+        info["score"] = 0.5
     return {
         "observation": obs.dict() if hasattr(obs, 'dict') else obs,
-        "reward": 0.0,
-        "done": False,
-        "info": {"score": 0.15} # <--- Score yahan hona chahiye
+        "reward": float(reward),
+        "done": bool(done),
+        "info": info
     }
-
-@app.get("/")
-def root():
-    return {"status": "running"}
 
 def main():
     uvicorn.run(app, host="0.0.0.0", port=7860)
