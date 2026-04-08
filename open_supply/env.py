@@ -34,15 +34,15 @@ class OpenSupplyEnv:
         self.reset()
 
     def reset(self, task_name: str = "easy_routing") -> SupplyObservation: # <--- task_name add kiya
-    if task_name in TASKS_CONFIG:
-        self.task_name = task_name
-        self.initial_config = TASKS_CONFIG[self.task_name]
-        self.budget = self.initial_config["budget"]
-        self.inventory = copy.deepcopy(self.initial_config["inventory"])
-        self.orders = copy.deepcopy(self.initial_config["orders"])
-        self.completed = 0
-        self.total_orders = len(self.orders)
-        self.done = False
+        if task_name in TASKS_CONFIG:
+            self.task_name = task_name
+            self.initial_config = TASKS_CONFIG[self.task_name]
+            self.budget = self.initial_config["budget"]
+            self.inventory = copy.deepcopy(self.initial_config["inventory"])
+            self.orders = copy.deepcopy(self.initial_config["orders"])
+            self.completed = 0
+            self.total_orders = len(self.orders)
+            self.done = False
         
         return self.state("Environment initialized. Awaiting commands.")
 
