@@ -17,7 +17,10 @@ action_model: "open_supply.models:SupplyAction"
 tasks:
   - name: "easy_routing"
     description: "Route a single order with unlimited budget and plenty of inventory."
+    grader: true  # <--- YEH ZAROORI HAI
   - name: "medium_budget"
-    description: "Route 3 pending orders under a tight budget constraint of $150. Requires choosing cost-effective shipping."
+    description: "Route 3 pending orders under a tight budget constraint of $150."
+    grader: true  # <--- YEH ZAROORI HAI
   - name: "hard_optimization"
-    description: "Route 5 orders with a strict $300 budget and limited inventory at the Chicago warehouse. Requires checking inventory and load-balancing."
+    description: "Route 5 orders with a strict $300 budget and limited inventory."
+    grader: true  # <--- YEH ZAROORI HAI

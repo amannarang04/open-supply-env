@@ -12,7 +12,13 @@ env = OpenSupplyEnv(task_name=task_name)
 @app.post("/reset")
 async def reset():
     obs = env.reset()
-    return {"observation": obs.dict(), "reward": 0.0, "done": False, "info": {"score": 0.01}}
+    # Ensure every reset call provides a valid starter score
+    return {
+        "observation": obs.dict(), 
+        "reward": 0.0, 
+        "done": False, 
+        "info": {"score": 0.05} 
+    }
 
 @app.post("/step")
 async def step(action: SupplyAction):
