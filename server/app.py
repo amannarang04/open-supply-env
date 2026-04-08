@@ -33,7 +33,7 @@ def reset(req: Optional[ResetRequest] = Body(default=None)):
         "observation": obs.dict(),
         "reward": 0.0,
         "done": False,
-        "info": {"score": 0.05} # Keeping the safe range score
+        "info": {"score": 0.1} # Keeping the safe range score
     }
 
 @app.get("/state")
