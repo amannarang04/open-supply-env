@@ -13,11 +13,14 @@ reward_range: [-1.0, 1.0]
 observation_model: "open_supply.models:SupplyObservation"
 action_model: "open_supply.models:SupplyAction"
 
-# The 3 Tasks required by the rubric (Exactly matching env.py)
+# The 3 Tasks required by the rubric
 tasks:
   - name: "easy_routing"
     description: "Route a single order with unlimited budget and plenty of inventory."
+    grader: true  # <--- YEH SABSE ZAROORI HAI
   - name: "medium_budget"
-    description: "Route 3 pending orders under a tight budget constraint of $150. Requires choosing cost-effective shipping."
+    description: "Route 3 pending orders under a tight budget constraint of $150."
+    grader: true  # <--- YEH BHI ZAROORI HAI
   - name: "hard_optimization"
-    description: "Route 5 orders with a strict $300 budget and limited inventory at the Chicago warehouse. Requires checking inventory and load-balancing."
+    description: "Route 5 orders with a strict $300 budget and limited inventory."
+    grader: true  # <--- YEH BHI ZAROORI HAI
