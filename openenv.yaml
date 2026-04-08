@@ -1,0 +1,23 @@
+name: "open_supply"
+version: "1.0.0"
+description: "A logistics optimization environment where the agent manages supply chain routing, inventory, and budget constraints."
+
+# The Python path to your environment class
+entry_point: "open_supply.env:OpenSupplyEnv"
+
+# Defining the boundaries of the simulation
+max_steps: 30
+reward_range: [-1.0, 1.0]
+
+# Links to the typed models
+observation_model: "open_supply.models:SupplyObservation"
+action_model: "open_supply.models:SupplyAction"
+
+# The 3 Tasks required by the rubric (Exactly matching env.py)
+tasks:
+  - name: "easy_routing"
+    description: "Route a single order with unlimited budget and plenty of inventory."
+  - name: "medium_budget"
+    description: "Route 3 pending orders under a tight budget constraint of $150. Requires choosing cost-effective shipping."
+  - name: "hard_optimization"
+    description: "Route 5 orders with a strict $300 budget and limited inventory at the Chicago warehouse. Requires checking inventory and load-balancing."
