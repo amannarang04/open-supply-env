@@ -1,19 +1,21 @@
 name: "open_supply"
 version: "1.0.0"
-description: "A logistics optimization environment"
+description: "Logistics optimization environment"
 entry_point: "open_supply.env:OpenSupplyEnv"
+
 max_steps: 30
 reward_range: [-1.0, 1.0]
+
 observation_model: "open_supply.models:SupplyObservation"
 action_model: "open_supply.models:SupplyAction"
 
 tasks:
   - name: "easy_routing"
-    description: "Easy"
+    description: "Easy Task"
     grader: true
   - name: "medium_budget"
-    description: "Medium"
+    description: "Medium Task"
     grader: true
   - name: "hard_optimization"
-    description: "Hard"
+    description: "Hard Task"
     grader: true
