@@ -1,28 +1,23 @@
 name: "open_supply"
 version: "1.0.0"
-description: "AI Logistics Manager for Supply Chain"
+description: "AI Logistics Manager"
 entry_point: "open_supply.env:OpenSupplyEnv"
 
 tasks:
   - id: "easy_routing"
     name: "Easy Routing"
-    difficulty: "easy"
     grader:
       type: "rule"
       checks:
         - "order_delivered"
-
   - id: "medium_budget"
     name: "Medium Budget"
-    difficulty: "medium"
     grader:
       type: "rule"
       checks:
         - "order_delivered"
-
   - id: "hard_optimization"
     name: "Hard Optimization"
-    difficulty: "hard"
     grader:
       type: "rule"
       checks:
