@@ -1,38 +1,29 @@
 name: "open_supply"
 version: "1.0.0"
-description: "Logistics optimization environment"
+description: "AI Logistics Manager for Supply Chain"
 entry_point: "open_supply.env:OpenSupplyEnv"
 
-max_steps: 30
-reward_range: [-1.0, 1.0]
-
-observation_model: "open_supply.models:SupplyObservation"
-action_model: "open_supply.models:SupplyAction"
-
 tasks:
-  - id: easy_routing
+  - id: "easy_routing"
     name: "Easy Routing"
-    difficulty: easy
+    difficulty: "easy"
     grader:
-      type: rule
+      type: "rule"
       checks:
-        - order_delivered
-        - cost_optimized
+        - "order_delivered"
 
-  - id: medium_budget
+  - id: "medium_budget"
     name: "Medium Budget"
-    difficulty: medium
+    difficulty: "medium"
     grader:
-      type: rule
+      type: "rule"
       checks:
-        - order_delivered
-        - cost_optimized
+        - "order_delivered"
 
-  - id: hard_optimization
+  - id: "hard_optimization"
     name: "Hard Optimization"
-    difficulty: hard
+    difficulty: "hard"
     grader:
-      type: rule
+      type: "rule"
       checks:
-        - order_delivered
-        - cost_optimized
+        - "order_delivered"
