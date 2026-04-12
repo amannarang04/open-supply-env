@@ -10,12 +10,29 @@ observation_model: "open_supply.models:SupplyObservation"
 action_model: "open_supply.models:SupplyAction"
 
 tasks:
-  - name: "easy_routing"
-    description: "Easy Task"
-    grader: true
-  - name: "medium_budget"
-    description: "Medium Task"
-    grader: true
-  - name: "hard_optimization"
-    description: "Hard Task"
-    grader: true
+  - id: easy_routing
+    name: "Easy Routing"
+    difficulty: easy
+    grader:
+      type: rule
+      checks:
+        - order_delivered
+        - cost_optimized
+
+  - id: medium_budget
+    name: "Medium Budget"
+    difficulty: medium
+    grader:
+      type: rule
+      checks:
+        - order_delivered
+        - cost_optimized
+
+  - id: hard_optimization
+    name: "Hard Optimization"
+    difficulty: hard
+    grader:
+      type: rule
+      checks:
+        - order_delivered
+        - cost_optimized
